@@ -403,7 +403,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -6385335916480479769, guid: 4a74116dd0204a54095629fd661c9733, type: 3}
       propertyPath: followSpeed
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4707965891868126898, guid: 4a74116dd0204a54095629fd661c9733, type: 3}
       propertyPath: m_RootOrder
@@ -411,7 +411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4707965891868126898, guid: 4a74116dd0204a54095629fd661c9733, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.11
+      value: 0.28
       objectReference: {fileID: 0}
     - target: {fileID: 4707965891868126898, guid: 4a74116dd0204a54095629fd661c9733, type: 3}
       propertyPath: m_LocalPosition.y
@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4707965891868126898, guid: 4a74116dd0204a54095629fd661c9733, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.53
+      value: -2.59
       objectReference: {fileID: 0}
     - target: {fileID: 4707965891868126898, guid: 4a74116dd0204a54095629fd661c9733, type: 3}
       propertyPath: m_LocalRotation.w
@@ -467,13 +467,29 @@ PrefabInstance:
       value: Sphere
       objectReference: {fileID: 0}
     - target: {fileID: 5571589274016474104, guid: 7ef444e20de44784e83b5f3c4ce6e15d, type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571589274016474104, guid: 7ef444e20de44784e83b5f3c4ce6e15d, type: 3}
       propertyPath: frequency
-      value: 0.3
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571589274016474104, guid: 7ef444e20de44784e83b5f3c4ce6e15d, type: 3}
+      propertyPath: movementSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571589274016474104, guid: 7ef444e20de44784e83b5f3c4ce6e15d, type: 3}
+      propertyPath: rotationSpeed
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 5571589274016474105, guid: 7ef444e20de44784e83b5f3c4ce6e15d, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5571589274016474107, guid: 7ef444e20de44784e83b5f3c4ce6e15d, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 5571589274016474108, guid: 7ef444e20de44784e83b5f3c4ce6e15d, type: 3}
       propertyPath: m_RootOrder
       value: 3

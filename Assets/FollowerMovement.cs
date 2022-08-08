@@ -13,7 +13,7 @@ public class FollowerMovement : MonoBehaviour
     [SerializeField]
     private float followSpeed=0.5f;
 
-    private List<GameObject> clones = new List<GameObject>();
+    private List<GameObject> clonesToFollow = new List<GameObject>();
 
 
     void Start(){
@@ -27,19 +27,21 @@ public class FollowerMovement : MonoBehaviour
 
         if(StartMoving==true){
             
-            if( targetIndex>=clones.Count){
+            if( targetIndex>=clonesToFollow.Count){
               
                 StartMoving=false;
                 return;
             }
 
-            
-            transform.position = Vector3.MoveTowards(transform.position,  clones[targetIndex].transform.position, 0.1f*followSpeed);
-
-          
-        
-          
+        transform.position = Vector3.MoveTowards(transform.position,  clonesToFollow[targetIndex].transform.position, followSpeed*0.1f);
+        if(transform.position.magnitude-clonesToFollow[targetIndex].transform.position.magnitude == 0){
+            Destroy(clonesToFollow[targetIndex]);
+            targetIndex+=1;
         }
+
+        }
+
+       
 
         
       
@@ -51,7 +53,7 @@ public class FollowerMovement : MonoBehaviour
     {
 
         StartMoving=true;
-        clones = _clones ;  
+        clonesToFollow = new List<GameObject>(_clones) ;  
        
      
     }
@@ -66,17 +68,4 @@ public class FollowerMovement : MonoBehaviour
         CharacterMovement.OnTouchEnded -= UpdateTarget;
     }
 
-    private void OnTriggerEnter(Collider other) {
-
-        
-        if(other.gameObject.tag == "Clone"){
-            Debug.Log("carptım");
-            if(other.gameObject.GetInstanceID()==clones[targetIndex].GetInstanceID()){
-            Destroy(other.gameObject);
-            targetIndex+=1;
-            }
-    
-        };
-        
-    }
 }
