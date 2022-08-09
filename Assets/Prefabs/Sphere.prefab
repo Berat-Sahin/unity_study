@@ -91,7 +91,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5571589274016474103}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -109,4 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5692925589120585448, guid: e0f81075311a16547ab26c1ec1321216, type: 3}
-  frequency: 0
+  movementSpeed: 5
+  rotationSpeed: 10000
+  frequency: 50
+  _button: {fileID: 0}

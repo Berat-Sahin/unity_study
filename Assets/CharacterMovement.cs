@@ -41,6 +41,12 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField]
     private float frequency;
 
+    [SerializeField]
+    private GameObject _button;
+    [SerializeField]
+    private GameObject _largeButton;
+
+
 
     private Vector3 lastPosition;
 
@@ -51,6 +57,7 @@ public class CharacterMovement : MonoBehaviour
         newPos=transform.position;
         lastPosition = transform.position;
         count=frequency*Time.deltaTime;
+        _button.SetActive(false);
     }
 
     // Update is called once per frame
@@ -60,25 +67,7 @@ public class CharacterMovement : MonoBehaviour
            if (Input.touchCount > 0)
         {
             TouchInputHandler();
-            MovementHandler();
-         
         }
-
-        currentPos=transform.position;
-       
-       
-        newPos=currentPos;
-
-
-        // if(currentPos.x>newPos.x+frequency || currentPos.x<newPos.x-frequency || currentPos.z>newPos.z+frequency || currentPos.z<newPos.z-frequency){    
-        //     GameObject clone=Instantiate(prefab, currentPos, Quaternion.identity);
-        //     clones.Add(clone);
-        //     newPos=currentPos;
-
-
-        // }
-
-   
         
         
     }
@@ -92,27 +81,43 @@ public class CharacterMovement : MonoBehaviour
 
             if(_touch.phase == TouchPhase.Began){
                 _movementStarted=true;
+
+
+                _button.SetActive(true);
+                _button.transform.position=_touch.position;
+
+                _largeButton.SetActive(true);
+                _largeButton.transform.position=_touch.position;
+
                 _initialTouch=_touch.position;
+                _currentTouch=_touch.position;
 
             }
 
             if(_movementStarted){
 
                 if(_touch.phase == TouchPhase.Moved){
-   
-                    _currentTouch=_touch.position;
-                    
-                   
-  
+
+                    _currentTouch=_touch.position;    
+                    _largeButton.transform.position=_touch.position;
+
+                }
+
+                
+
+                if(_touch.phase == TouchPhase.Ended){
+                    _movementStarted=false;
+                    _button.SetActive(false);
+                    _largeButton.SetActive(false);
+                    OnTouchEnded?.Invoke(this.gameObject,this.clones);
+
                 }
 
                 _movementVector=_currentTouch-_initialTouch;
 
-                if(_touch.phase == TouchPhase.Ended){
-                    _movementStarted=false;
-                    OnTouchEnded?.Invoke(this.gameObject,this.clones);
 
-                }
+                MovementHandler();
+                shadowHandler();
 
             }
             
@@ -128,23 +133,54 @@ public class CharacterMovement : MonoBehaviour
         _movementVector.y=0;
        
      
-        Quaternion _rotationVector =Quaternion.LookRotation(_movementVector,Vector3.up);
+   
+
+        float speed=Mathf.Clamp(_movementVector.magnitude/25,0,movementSpeed);
+
+        if(speed==movementSpeed){
+            Debug.Log("maks speed");
+        }
+
        
-    
-    
-        transform.Translate(Vector3.forward* Time.deltaTime*movementSpeed);
+        transform.Translate(Vector3.forward*Time.deltaTime*speed);
+        
+      
+
         count+=Time.deltaTime;
         if(count>=(oldCount+frequency*Time.deltaTime)){
-             Debug.Log(count);
+            
              count=0;
-            GameObject clone=Instantiate(prefab, transform.position, Quaternion.identity);
-            clones.Add(clone);
+
         }
        
-        transform.rotation=Quaternion.RotateTowards(transform.rotation,_rotationVector,rotationSpeed*Time.deltaTime);
+
+        if (!_movementVector.Equals(Vector3.zero)) {
+
+            Quaternion _rotationVector =Quaternion.LookRotation(_movementVector,Vector3.up);
+            
+            transform.rotation=Quaternion.RotateTowards(transform.rotation,_rotationVector,rotationSpeed*Time.deltaTime);
+   
+            }
+        
 
 
 
+    }
+
+    void shadowHandler(){
+
+        Debug.Log(transform.position.magnitude-currentPos.magnitude);
+
+        Debug.Log(frequency-currentPos.magnitude);
+
+        if((transform.position-currentPos).magnitude> frequency){
+            GameObject clone=Instantiate(prefab, transform.position, Quaternion.identity);
+            currentPos=transform.position;
+            clones.Add(clone);
+
+            
+        }
+        
     }
 
 
